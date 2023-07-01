@@ -1,0 +1,97 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Generator"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="Generator.MainWindow"
+        Title="Generator" Height="455" Width="800">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="NewQuiz" Content="Nowy Quiz" Grid.Row="0" Command="{Binding AddQuizCommand}"/>
+                <TextBox x:Name="QuizName" TextWrapping="Wrap" Grid.Row="1" Text="{Binding NewQuizName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button x:Name="ChangeQuiz" Content="Zmień nazwę quizu" Command="{Binding UpdateQuizCommand}" Grid.Row="2"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="NewQuestion" Content="Nowe Pytanie" Grid.Row="0" Command="{Binding AddQuestionCommand}"/>
+                <TextBox x:Name="QuestionName" TextWrapping="Wrap" Grid.Row="1" Text="{Binding NewQuestionText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button x:Name="ChangeQuestion" Content="Zmień pytanie" Grid.Row="2" Command="{Binding UpdateQuestionCommand}"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="AnswerName1" Text="{Binding NewAnswer1}" TextWrapping="Wrap" Grid.Row="0"/>
+            <CheckBox x:Name="True1" IsChecked="{Binding NewFalse1}" Content="Prawidłowa" Grid.Row="1"/>
+            <TextBox x:Name="AnswerName2" Text="{Binding NewAnswer2}" TextWrapping="Wrap" Grid.Row="2"/>
+            <CheckBox x:Name="True2" IsChecked="{Binding NewFalse2}" Content="Prawidłowa" Grid.Row="3"/>
+            <TextBox x:Name="AnswerName3" Text="{Binding NewAnswer3}" TextWrapping="Wrap" Grid.Row="4"/>
+            <CheckBox x:Name="True3" IsChecked="{Binding NewFalse3}" Content="Prawidłowa" Grid.Row="5"/>
+            <TextBox x:Name="AnswerName4" Text="{Binding NewAnswer4}" TextWrapping="Wrap" Grid.Row="6"/>
+            <CheckBox x:Name="True5" IsChecked="{Binding NewFalse4}" Content="Prawidłowa" Grid.Row="7"/>
+        </Grid>
+        <Grid Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox x:Name="Quizes" ItemsSource="{Binding Quizzes}" SelectedItem="{Binding SelectedQuiz}" SelectedIndex="{Binding NewQuizId}" Grid.Row="0" Grid.Column="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding Name}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox x:Name="Questions" ItemsSource="{Binding SelectedQuizQuestions}" SelectedItem="{Binding SelectedQuestion}" Grid.Row="0" Grid.Column="1">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding QuestionText}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button x:Name="ReadBase" Command="{Binding ReadDataBaseCommand}" Content="Wczytaj Bazę" Grid.Row="1" Grid.Column="0"/>
+            <Button x:Name="SaveBase" Command="{Binding SaveDataBaseComandm}" Content="Zapisz do Bazy" Grid.Row="2" Grid.Column="0"/>
+            <Button x:Name="DeleteQuiz" Command="{Binding RemoveQuizCommand}" Content="Usuń Quiz" Grid.Row="1" Grid.Column="1"/>
+            <Button x:Name="DeleteQuestion" Command="{Binding RemoveQuestionCommand}" Content="Usuń Pytanie" Grid.Row="2" Grid.Column="1"/>
+        </Grid>
+
+    </Grid>
+</Window>
